@@ -1,0 +1,20 @@
+<h1>Add New Team</h1>
+
+<%= form_with model: @team do |form| %>
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<ul>
+  <% @teams.each do |team| %>
+    <li>
+      <%= team.name %>
+    </li>
+  <% end %>
+</ul>
