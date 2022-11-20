@@ -1,2 +1,31 @@
-<h1>Teams#show</h1>
-<p>Find me in app/views/teams/show.html.erb</p>
+<h1><%= @team.name %></h1>
+
+<p> Points:<%= @team.points %></p>
+
+<h2>Create Result</h2>
+<%= form_with url: "/add_result", method: :post do |form| %>
+  <div>
+    <%= form.label :text %><br>
+    <%= form.select :text, ["Group Stage Draw", "Group Stage Win", "Group Stage Runner-Up", "Group Stage Champion", "First Knockout Win", "Quarter-Final Win", "Semi-Final Win", "Cup Champion"] %>
+    <%= form.hidden_field :id, value: @team.id %><br>
+
+    <%= form.label :opponent %><br>
+    <%= form.text_field :opponent %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<h1>Results</h1>
+<ul>
+  <% @results.each do |result| %>
+    <li>
+      <span><%= result.text %> vs. <%= result.get_team_name(result.opponent_id) %> </span>
+      
+
+    </li>
+  <% end %>
+</ul>
+

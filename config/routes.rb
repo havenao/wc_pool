@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   root "teams#index"
-  resource "teams"
-  resource "players"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
+  resources :teams
+  post "/add_result", to: "teams#add_result"
+  resources :players
 end
