@@ -1,9 +1,8 @@
 <h1>Players</h1>
-
 <ul>
   <% @players.each do |player| %>
     <li>
-      <span><%= link_to player.name, player %>: <%= player.get_point_total %></span>
+      <%= link_to player.name, player %>
     </li>
   <% end %>
 </ul>

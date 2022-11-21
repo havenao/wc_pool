@@ -18,7 +18,7 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params.merge({points: 0}))
 
     if @team.save
-      redirect_to @team
+      redirect_to new_team_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -73,14 +73,3 @@ class TeamsController < ApplicationController
       params.require(:team).permit(:name, :points)
     end
 end
-# result_hash = {
-#   "Loss" => 0,
-#   "Group Stage Draw" => 100,
-#   "Group Stage Win" => 200,
-#   "Group Stage Runner-Up" => 200,
-#   "Group Stage Champion" => 400,
-#   "First Knockout Win" => 400,
-#   "Quarter-Final Win" => 900,
-#   "Semi-Final Win" => 1200,
-#   "Cup Champion" => 1500,
-# }

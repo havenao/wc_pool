@@ -1,2 +1,29 @@
-<h1>Players#show</h1>
-<p>Find me in app/views/players/show.html.erb</p>
+<h1><%= @player.name %></h1>
+
+<p> Points: <%= @player.get_point_total.to_s %></p>
+
+<h2>Shares</h2>
+<ul>
+  <% @shares.each do |share| %>
+    <li>
+      <span><%= share.get_team_name(share.team_id) %>: <%= share.shares %> Shares, %<%= Share.get_percentage(Share.calculate_value(share.team_id, share.player_id)).to_i %></span>
+    </li>
+  <% end %>
+</ul>
+
+<h2>Invest</h2>
+<%= form_with url: "/invest", method: :post do |form| %>
+  <div>
+    <%= form.hidden_field :player, value: @player.id %><br>
+
+    <%= form.label :team %><br>
+    <%= form.select :team, @teams.map{|team| [team.name, team.id]} %><br>
+
+    <%= form.label :amount %><br>
+    <%= form.select :amount, [10, 20, 30, 40, 50] %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

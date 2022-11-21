@@ -2,7 +2,8 @@
 <ul>
   <% @teams.each do |team| %>
     <li>
-      <%= link_to team.name, team %>
+    <span><%= link_to team.name, team %>: <%= team.points %></span>
+      
     </li>
   <% end %>
 </ul>
