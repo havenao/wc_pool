@@ -1,4 +1,4 @@
-<div class="d-flex flex-row justify-content-between align-items-center">
+<div class="d-flex flex-row justify-content-between align-items-start">
   <h1><%= @player.name %></h1>
   <%= link_to "Players", players_path, class: "btn btn-dark" %>
 </div>
@@ -11,7 +11,7 @@
     <% if @shares.count > 0 %>
       <% @shares.each do |share| %>
         <li class="list-group-item">
-          <span><%= share.get_team_name(share.team_id) %>: <%= share.shares %> Shares, %<%= Share.get_percentage(Share.calculate_value(share.team_id, share.player_id)).to_i %></span>
+          <span><%= share.get_team_name(share.team_id) %>: <%= share.shares %> Shares, <%= Share.get_percentage(share.team_id, share.player_id).to_i %>%</span>
         </li>
       <% end %>
     <% else %>

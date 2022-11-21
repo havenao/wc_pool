@@ -2,7 +2,7 @@
   <ul class="list-group">
     <% @teams.each do |team| %>
       <li class="list-group-item">
-        <span><%= link_to team.name, team %>: <%= team.get_point_total %></span>
+        <span><%= link_to team.name, team %>: <%= team.points %></span>
       </li>
     <% end %>
   </ul>

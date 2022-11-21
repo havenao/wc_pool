@@ -2,7 +2,8 @@ class Share < ApplicationRecord
   belongs_to :player
   belongs_to :team
 
-  def self.get_percentage(decimal)
+  def self.get_percentage(team_id, player_id)
+    decimal = calculate_value(team_id, player_id)
     decimal * 100
   end
 
@@ -12,10 +13,9 @@ class Share < ApplicationRecord
     
     shares.each do |share|      
       total_shares += share.shares
-      puts total_shares
     end
 
-    player_share = Share.where(player_id: player_id).take.shares
+    player_share = Share.where(player_id: player_id, team_id: team_id).take.shares
     player_share.to_f / total_shares.to_f
   end
 

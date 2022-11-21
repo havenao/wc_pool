@@ -40,18 +40,18 @@ Team.create([
 
 Player.destroy_all
 Player.create([
-  {name: "Alex"},
-  {name: "Andre"},
-  {name: "Andy"},
-  {name: "Atlee"},
-  {name: "Beth"},
-  {name: "Dagan"},
-  {name: "Haven"},
-  {name: "Isaac"},
-  {name: "JSB"},
-  {name: "Katie"},
-  {name: "Loewen"},
-  {name: "Ned"},
+  {name: "Alex", points: 0},
+  {name: "Andre", points: 0},
+  {name: "Andy", points: 0},
+  {name: "Atlee", points: 0},
+  {name: "Beth", points: 0},
+  {name: "Dagan", points: 0},
+  {name: "Haven", points: 0},
+  {name: "Isaac", points: 0},
+  {name: "JSB", points: 0},
+  {name: "Katie", points: 0},
+  {name: "Loewen", points: 0},
+  {name: "Ned", points: 0},
 ])
 
 puts "Added all teams. Added all players"

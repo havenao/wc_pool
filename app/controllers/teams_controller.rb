@@ -1,13 +1,12 @@
 class TeamsController < ApplicationController
   def index
-    @teams = Team.all
+    @teams = Team.order(points: :desc).all
   end
 
   def show
     @teams = Team.all
     @team = Team.find(params[:id])
     @results = Result.where(team_id: @team.id)
-    
   end
 
   def new
@@ -69,6 +68,10 @@ class TeamsController < ApplicationController
       Result.create({:team_id => @team.id, :opponent_id => opponent.id, :text => text, :points => result_hash[text]})    
       Result.create({:team_id => opponent.id, :opponent_id => @team.id, :text => "Loss", :points => result_hash["Loss"]})
     end
+
+    @team.update_points
+    opponent.update_points
+    Player.update_points
 
     redirect_to @team
   end
