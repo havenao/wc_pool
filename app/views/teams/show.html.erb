@@ -1,6 +1,6 @@
 <h1><%= @team.name %></h1>
 
-<p> Points: <%= @team.points %></p>
+<p> Points: <%= @team.get_point_total %></p>
 
 <h2>Create Result</h2>
 <%= form_with url: "/add_result", method: :post do |form| %>
@@ -10,7 +10,7 @@
     <%= form.hidden_field :id, value: @team.id %><br>
 
     <%= form.label :opponent %><br>
-    <%= form.text_field :opponent %>
+    <%= form.select :opponent, @teams.map{|team| team.name} %>
   </div>
 
   <div>

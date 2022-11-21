@@ -4,6 +4,7 @@ class TeamsController < ApplicationController
   end
 
   def show
+    @teams = Team.all
     @team = Team.find(params[:id])
     @results = Result.where(team_id: @team.id)
     
@@ -42,8 +43,11 @@ class TeamsController < ApplicationController
   end
 
   def add_result
+    # Get team and opponent
     @team = Team.find(params[:id])
     opponent = Team.where(name: params[:opponent]).take
+
+    # text from form... Must match a text key in result hash below... 
     text = params[:text]
 
     result_hash = {
@@ -58,10 +62,11 @@ class TeamsController < ApplicationController
       "Cup Champion" => 1500,
     }
 
-    Result.create({:team_id => @team.id, :opponent_id => opponent.id, :text => text, :points => result_hash[text]})
     if(text == "Group Stage Draw")
+      Result.create({:team_id => @team.id, :opponent_id => opponent.id, :text => text, :points => result_hash[text]})
       Result.create({:team_id => opponent.id, :opponent_id => @team.id, :text => text, :points => result_hash[text]})
     else
+      Result.create({:team_id => @team.id, :opponent_id => opponent.id, :text => text, :points => result_hash[text]})    
       Result.create({:team_id => opponent.id, :opponent_id => @team.id, :text => "Loss", :points => result_hash["Loss"]})
     end
 
