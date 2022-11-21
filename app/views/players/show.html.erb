@@ -2,22 +2,36 @@
   <h1><%= @player.name %></h1>
   <%= link_to "Players", players_path, class: "btn btn-dark" %>
 </div>
+<hr class="hr">
 
-<h3> Points: <%= @player.get_point_total.to_s %></h3>
-
+<h3><%= ApplicationHelper.strip_trailing_zero @player.get_point_total.round(2) %> Points</h3>
+<hr class="hr">
 <div class="mb-3">
   <h4>Shares</h4>
-  <ul class="list-group">
+  <table class="table">
     <% if @shares.count > 0 %>
-      <% @shares.each do |share| %>
-        <li class="list-group-item">
-          <span><%= share.get_team_name(share.team_id) %>: <%= share.shares %> Shares, <%= Share.get_percentage(share.team_id, share.player_id).to_i %>%</span>
-        </li>
-      <% end %>
+      <thead>
+        <tr>
+          <th scope="col">Team</th>
+          <th scope="col">Shares</th>
+          <th scope="col">Stakes</th>
+          <th scope="col">Points Earned</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @shares.each do |share| %>
+        <tr>
+          <td><%= share.get_team_name(share.team_id) %></td>
+          <td><%= share.shares %></td>
+          <td><%= ApplicationHelper.strip_trailing_zero Share.get_percentage(share.team_id, share.player_id).round(2) %>%</td>
+          <td>+ <%= ApplicationHelper.strip_trailing_zero  Share.get_points(share.team_id, share.player_id) %></td>
+        </tr>
+        <% end %>
+      </tbody>        
     <% else %>
-    <li class="list-group-item">No Shares Invested</li>
+      <div >No Shares Invested</div>
     <% end %>
-  </ul>
+  </table>
 </div>
 
 <div class="container text-bg-light p-3">
