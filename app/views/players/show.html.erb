@@ -1,39 +1,40 @@
-<div class="container mt-3">
+<div class="d-flex flex-row justify-content-between align-items-center">
   <h1><%= @player.name %></h1>
+  <%= link_to "Players", players_path, class: "btn btn-dark" %>
+</div>
 
-  <h3> Points: <%= @player.get_point_total.to_s %></h3>
+<h3> Points: <%= @player.get_point_total.to_s %></h3>
 
-  <div class="mb-3">
-    <h4>Shares</h4>
-    <ul class="list-group">
-      <% if @shares.count > 0 %>
-        <% @shares.each do |share| %>
-          <li class="list-group-item">
-            <span><%= share.get_team_name(share.team_id) %>: <%= share.shares %> Shares, %<%= Share.get_percentage(Share.calculate_value(share.team_id, share.player_id)).to_i %></span>
-          </li>
-        <% end %>
-      <% else %>
-      <li class="list-group-item">No Shares Invested</li>
+<div class="mb-3">
+  <h4>Shares</h4>
+  <ul class="list-group">
+    <% if @shares.count > 0 %>
+      <% @shares.each do |share| %>
+        <li class="list-group-item">
+          <span><%= share.get_team_name(share.team_id) %>: <%= share.shares %> Shares, %<%= Share.get_percentage(Share.calculate_value(share.team_id, share.player_id)).to_i %></span>
+        </li>
       <% end %>
-    </ul>
-  </div>
-
-  <div class="container text-bg-light p-3">
-    <h6>Invest</h6>
-    <%= form_with url: "/invest", method: :post do |form| %>
-      <div class="mb-3">
-        <%= form.hidden_field :player, value: @player.id %><br>
-
-        <%= form.label :team, {}, class: "form-label" %><br>
-        <%= form.select :team, @teams.map{|team| [team.name, team.id]}, {}, class: "form-select" %><br>
-
-        <%= form.label :amount, {}, class: "form-label"  %><br>
-        <%= form.select :amount, [10, 20, 30, 40, 50], {}, class: "form-select" %>
-      </div>
-
-      <div>
-        <%= form.submit %>
-      </div>
+    <% else %>
+    <li class="list-group-item">No Shares Invested</li>
     <% end %>
-  </div>
+  </ul>
+</div>
+
+<div class="container text-bg-light p-3">
+  <h5>Invest</h5>
+  <%= form_with url: "/invest", method: :post do |form| %>
+    <div class="mb-3">
+      <%= form.hidden_field :player, value: @player.id %><br>
+
+      <%= form.label :team, {}, class: "form-label" %><br>
+      <%= form.select :team, @teams.map{|team| [team.name, team.id]}, {}, class: "form-select" %><br>
+
+      <%= form.label :amount, {}, class: "form-label"  %><br>
+      <%= form.select :amount, [10, 20, 30, 40, 50], {}, class: "form-select" %>
+    </div>
+
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
 </div>

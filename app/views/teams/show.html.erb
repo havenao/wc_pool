@@ -1,37 +1,37 @@
-<div class="container mt-3">
+<div class="d-flex flex-row justify-content-between align-items-center">
   <h1><%= @team.name %></h1>
-
-  <h3 class="mb-3"> Points: <%= @team.get_point_total %></h3>
-
-  <h4>Results</h4>
-  <ul class="list-group mb-3">
-    <% if @results.count > 0 %>
-      <% @results.each do |result| %>
-        <li class="list-group-item">
-          <span><%= result.text %> vs. <%= result.get_team_name(result.opponent_id) %> </span>
-        </li>
-      <% end %>
-    <% else %>
-      <li class="list-group-item">No Results Yet...</li>
-    <% end %>
-  </ul>
-
-  <div class="container text-bg-light p-3">
-    <h6>Create Result</h6>
-    <%= form_with url: "/add_result", method: :post do |form| %>
-      <div class="mb-3">
-        <%= form.label :text, {}, class: "form-label" %>
-        <%= form.select :text, ["Group Stage Draw", "Group Stage Win", "Group Stage Runner-Up", "Group Stage Champion", "First Knockout Win", "Quarter-Final Win", "Semi-Final Win", "Cup Champion"], {}, class: "form-select" %>
-        <%= form.hidden_field :id, value: @team.id %><br>
-
-        <%= form.label :opponent, {}, class: "form-label" %>
-        <%= form.select :opponent, @teams.map{|team| team.name}, {}, class: "form-select" %>
-      </div>
-
-      <div >
-        <%= form.submit class: "btn btn-primary" %>
-      </div>
-    <% end %>
-  </div>
+  <%= link_to "Teams", teams_path, class: "btn btn-dark" %>
 </div>
 
+<h3 class="mb-3"> Points: <%= @team.get_point_total %></h3>
+
+<h4>Results</h4>
+<ul class="list-group mb-3">
+  <% if @results.count > 0 %>
+    <% @results.each do |result| %>
+      <li class="list-group-item">
+        <span><%= result.text %> vs. <%= result.get_team_name(result.opponent_id) %> </span>
+      </li>
+    <% end %>
+  <% else %>
+    <li class="list-group-item">No Results Yet...</li>
+  <% end %>
+</ul>
+
+<div class="container text-bg-light p-3">
+  <h5>Create Result</h5>
+  <%= form_with url: "/add_result", method: :post do |form| %>
+    <div class="mb-3">
+      <%= form.label :text, {}, class: "form-label" %>
+      <%= form.select :text, ["Group Stage Draw", "Group Stage Win", "Group Stage Runner-Up", "Group Stage Champion", "First Knockout Win", "Quarter-Final Win", "Semi-Final Win", "Cup Champion"], {}, class: "form-select" %>
+      <%= form.hidden_field :id, value: @team.id %><br>
+
+      <%= form.label :opponent, {}, class: "form-label" %>
+      <%= form.select :opponent, @teams.map{|team| team.name}, {}, class: "form-select" %>
+    </div>
+
+    <div >
+      <%= form.submit class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
