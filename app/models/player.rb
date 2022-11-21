@@ -16,7 +16,7 @@ class Player < ApplicationRecord
     players = Player.all
 
     players.each do |player|
-      points = playerget_point_total
+      points = player.get_point_total
       player.update(:points => points)
     end
   end

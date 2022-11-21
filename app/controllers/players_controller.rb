@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
   def index
-    @players = Player.order(points: :desc).all
+    @players = Player.order(points: :desc)
   end
   
   def show
