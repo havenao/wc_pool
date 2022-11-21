@@ -1,9 +1,9 @@
-<h1>Teams</h1>
-<ul>
-  <% @teams.each do |team| %>
-    <li>
-    <span><%= link_to team.name, team %>: <%= team.get_point_total %></span>
-      
-    </li>
-  <% end %>
-</ul>
+<div class="mb-3">
+  <ul class="list-group">
+    <% @teams.each do |team| %>
+      <li class="list-group-item">
+        <span><%= link_to team.name, team %>: <%= team.get_point_total %></span>
+      </li>
+    <% end %>
+  </ul>
+</div>

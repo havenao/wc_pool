@@ -1,31 +1,37 @@
-<h1><%= @team.name %></h1>
+<div class="container mt-3">
+  <h1><%= @team.name %></h1>
 
-<p> Points: <%= @team.get_point_total %></p>
+  <h3 class="mb-3"> Points: <%= @team.get_point_total %></h3>
 
-<h2>Create Result</h2>
-<%= form_with url: "/add_result", method: :post do |form| %>
-  <div>
-    <%= form.label :text %><br>
-    <%= form.select :text, ["Group Stage Draw", "Group Stage Win", "Group Stage Runner-Up", "Group Stage Champion", "First Knockout Win", "Quarter-Final Win", "Semi-Final Win", "Cup Champion"] %>
-    <%= form.hidden_field :id, value: @team.id %><br>
+  <h4>Results</h4>
+  <ul class="list-group mb-3">
+    <% if @results.count > 0 %>
+      <% @results.each do |result| %>
+        <li class="list-group-item">
+          <span><%= result.text %> vs. <%= result.get_team_name(result.opponent_id) %> </span>
+        </li>
+      <% end %>
+    <% else %>
+      <li class="list-group-item">No Results Yet...</li>
+    <% end %>
+  </ul>
 
-    <%= form.label :opponent %><br>
-    <%= form.select :opponent, @teams.map{|team| team.name} %>
+  <div class="container text-bg-light p-3">
+    <h6>Create Result</h6>
+    <%= form_with url: "/add_result", method: :post do |form| %>
+      <div class="mb-3">
+        <%= form.label :text, {}, class: "form-label" %>
+        <%= form.select :text, ["Group Stage Draw", "Group Stage Win", "Group Stage Runner-Up", "Group Stage Champion", "First Knockout Win", "Quarter-Final Win", "Semi-Final Win", "Cup Champion"], {}, class: "form-select" %>
+        <%= form.hidden_field :id, value: @team.id %><br>
+
+        <%= form.label :opponent, {}, class: "form-label" %>
+        <%= form.select :opponent, @teams.map{|team| team.name}, {}, class: "form-select" %>
+      </div>
+
+      <div >
+        <%= form.submit class: "btn btn-primary" %>
+      </div>
+    <% end %>
   </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
-
-<h1>Results</h1>
-<ul>
-  <% @results.each do |result| %>
-    <li>
-      <span><%= result.text %> vs. <%= result.get_team_name(result.opponent_id) %> </span>
-      
-
-    </li>
-  <% end %>
-</ul>
+</div>
 

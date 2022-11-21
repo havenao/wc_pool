@@ -1,24 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Rules
+Each Group Play round DRAW +100
+Each Group Play round WIN +200
+Advancing as Group Runner-Up +200
+Advancing as Group Champion +400
+Rd of 16 WIN +600
+Quarter-Final WIN +900
+Semi-Final WIN +1200
+Tournament Champion +1500
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Each person gets 100 credits to invest in 2-6 teams. Maximum of 50 credit investment per team, minimum 10

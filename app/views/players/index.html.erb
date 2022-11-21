@@ -1,11 +1,15 @@
-<h1>Players</h1>
+<div class="container mt-3">
+  <div class="d-flex flex-row justify-content-between">
+    <h1>Players</h1>
+    <%= link_to "Teams", teams_path %>
+  </div>
 
-<ul>
-  <% @players.each do |player| %>
-    <li>
-      <span><%= link_to player.name, player %>: <%= player.get_point_total %></span>
-    </li>
-  <% end %>
-</ul>
+  <ul class="list-group">
+    <% @players.each do |player| %>
+      <li class="list-group-item">
+        <span><%= link_to player.name, player %>: <%= player.get_point_total %></span>
+      </li>
+    <% end %>
+  </ul>
 
-<%= link_to "Teams", teams_path %>
+</div>
