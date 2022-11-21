@@ -1,6 +1,8 @@
 class TeamsController < ApplicationController
   def index
-    @teams = Team.order(points: :desc).all
+    teams = Team.order(points: :desc).all
+    @top_teams = teams.slice(0, 16)
+    @bottom_teams = teams.slice(16, 31)
   end
 
   def show

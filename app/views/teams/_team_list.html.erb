@@ -1,6 +1,13 @@
-<div class="mb-3">
-  <ul class="list-group">
-    <% @teams.each do |team| %>
+<div class="mb-3 d-flex flex-row justify-content-start">
+  <ul class="list-group flex-grow-1 me-3">
+    <% @top_teams.each do |team| %>
+      <li class="list-group-item">
+        <span><%= link_to team.name, team %>: <%= team.points %></span>
+      </li>
+    <% end %>
+  </ul>
+  <ul class="list-group flex-grow-1">
+    <% @bottom_teams.each do |team| %>
       <li class="list-group-item">
         <span><%= link_to team.name, team %>: <%= team.points %></span>
       </li>
