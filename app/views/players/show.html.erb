@@ -21,10 +21,10 @@
       <tbody>
         <% @shares.each do |share| %>
         <tr>
-          <td><%= share.get_team_name(share.team_id) %></td>
-          <td><%= share.shares %></td>
-          <td><%= ApplicationHelper.strip_trailing_zero Share.get_percentage(share.team_id, share.player_id).round(2) %>%</td>
-          <td>+ <%= ApplicationHelper.strip_trailing_zero  Share.get_points(share.team_id, share.player_id) %></td>
+          <td><%= share.get_team_name %></td>
+          <td><%= share.amount %></td>
+          <td><%= ApplicationHelper.strip_trailing_zero share.player_stake_percent.round(2) %>%</td>
+          <td>+ <%= ApplicationHelper.strip_trailing_zero  share.player_points.round(2) %></td>
         </tr>
         <% end %>
       </tbody>        

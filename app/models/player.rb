@@ -5,11 +5,11 @@ class Player < ApplicationRecord
   def get_point_total
     point_total = 0
 
-    teams.each do |team|
-      point_total += ((team.points.to_f || 0) * Share.calculate_value(team.id, id))
+    shares.each do |share|
+      point_total += share.points
     end
 
-    point_total
+    point_total.to_f
   end
 
   def self.update_points

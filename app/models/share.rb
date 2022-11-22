@@ -2,29 +2,43 @@ class Share < ApplicationRecord
   belongs_to :player
   belongs_to :team
 
-  def self.get_percentage(team_id, player_id)
-    decimal = calculate_value(team_id, player_id)
-    decimal * 100
+  def team_shares
+    Share.where(team_id: team_id)
   end
 
-  def self.calculate_value(team_id, player_id)
-    shares = Share.where(team_id: team_id)
+  def team_total
+    shares = team_shares
     total_shares = 0
-    
+
     shares.each do |share|      
-      total_shares += share.shares
+      total_shares += share.amount
     end
 
-    player_share = Share.where(player_id: player_id, team_id: team_id).take.shares
-    player_share.to_f / total_shares.to_f
+    total_shares
   end
 
-  def self.get_points(team_id, player_id)
-    team = Team.find(team_id)
-    team.points * calculate_value(team_id, player_id)
+  def player_stake
+    amount.to_f / team_total.to_f
+  end
+  
+  def player_stake_percent
+    player_stake * 100
   end
 
-  def get_team_name(id)
-    Team.find(id).name
+  def player_points
+    team.points * player_stake
+  end
+
+  def get_team_name()
+    Team.find(team_id).name
+  end
+
+  def self.update_points
+    shares = Share.all
+
+    shares.each do |share|
+      points = share.player_points
+      share.update(:points => points)
+    end
   end
 end
