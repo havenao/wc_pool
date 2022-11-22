@@ -6,7 +6,7 @@ class PlayersController < ApplicationController
   def show
     @player = Player.find(params[:id])
     @teams = Team.order(name: :asc).all
-    @shares = Share.where(player_id: @player.id).order(points: :desc)    
+    @shares = Share.where(player_id: @player.id).order(points: :desc, amount: :desc)    
   end
 
   def new
