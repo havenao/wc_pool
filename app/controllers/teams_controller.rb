@@ -48,7 +48,7 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
     opponent = Team.where(name: params[:opponent]).take
 
-    # text from form... Must match a text key in result hash below... 
+    # text from form... Must match a text key in result hash below.
     text = params[:text]
 
     result_hash = {
@@ -73,7 +73,11 @@ class TeamsController < ApplicationController
 
     @team.update_points
     opponent.update_points
+
+    # I believe Shares needs to update beforw player for accurate scoring.
+    Share.update_points
     Player.update_points
+
 
     redirect_to @team
   end
