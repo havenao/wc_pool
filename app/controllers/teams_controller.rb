@@ -6,9 +6,10 @@ class TeamsController < ApplicationController
   end
 
   def show
-    @teams = Team.all
+    @teams = Team.order(name: :asc).all
     @team = Team.find(params[:id])
     @results = Result.where(team_id: @team.id)
+    @shares = Share.where(team_id: @team.id).order(amount: :desc)
   end
 
   def new
