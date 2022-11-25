@@ -21,7 +21,7 @@
       <tbody>
         <% @shares.each do |share| %>
         <tr>
-          <td><%= share.team.name %></td>
+          <td><%= link_to share.team.name, share.team %></td>
           <td><%= share.amount %></td>
           <td><%= ApplicationHelper.strip_trailing_zero share.player_stake_percent.round(2) %>%</td>
           <td>+ <%= ApplicationHelper.strip_trailing_zero  share.player_points.round(2) %></td>
