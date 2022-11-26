@@ -43,7 +43,7 @@ class PlayersController < ApplicationController
 
   def invest
     @player = Player.find(params[:player])
-    Share.create({:shares => params[:amount], :player_id => params[:player], :team_id => params[:team]})
+    Share.create({:amount => params[:amount], :player_id => params[:player], :team_id => params[:team]})
     redirect_to @player
   end
 

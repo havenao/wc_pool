@@ -6,7 +6,7 @@ class Player < ApplicationRecord
     point_total = 0
 
     shares.each do |share|
-      point_total += share.points
+      point_total += share.points || 0
     end
 
     point_total.to_f

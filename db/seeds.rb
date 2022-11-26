@@ -138,8 +138,9 @@ jsb = [
   {player_id: player_id("JSB"), team_id: team_id("Brazil"), amount: 30, points: 0},
   {player_id: player_id("JSB"), team_id: team_id("England"), amount: 20, points: 0},
   {player_id: player_id("JSB"), team_id: team_id("France"), amount: 20, points: 0},
-  {player_id: player_id("JSB"), team_id: team_id("Wales"), amount: 10, points: 0},
+  {player_id: player_id("JSB"), team_id: team_id("Croatia"), amount: 10, points: 0},
   {player_id: player_id("JSB"), team_id: team_id("Spain"), amount: 10, points: 0},
+  {player_id: player_id("JSB"), team_id: team_id("Wales"), amount: 10, points: 0},
 ]
 
 katie = [
