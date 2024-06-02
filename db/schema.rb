@@ -13,9 +13,9 @@
 ActiveRecord::Schema[7.0].define(version: 2022_11_22_000354) do
   create_table "players", force: :cascade do |t|
     t.string "name"
+    t.integer "points"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "points"
   end
 
   create_table "results", force: :cascade do |t|
@@ -41,10 +41,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_22_000354) do
 
   create_table "teams", force: :cascade do |t|
     t.string "name"
+    t.integer "points"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "group"
-    t.integer "points"
   end
 
   add_foreign_key "results", "teams"
