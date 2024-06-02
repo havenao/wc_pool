@@ -1,8 +1,8 @@
 class TeamsController < ApplicationController
   def index
     teams = Team.order(points: :desc)
-    @top_teams = teams.slice(0, 16)
-    @bottom_teams = teams.slice(16, 31)
+    @top_teams = teams.slice(0, 12)
+    @bottom_teams = teams.slice(12, 23)
   end
 
   def show
@@ -45,6 +45,7 @@ class TeamsController < ApplicationController
   end
 
   def add_result
+    return unless current_user.admin?
     # Get team and opponent
     @team = Team.find(params[:id])
     opponent = Team.where(name: params[:opponent]).take

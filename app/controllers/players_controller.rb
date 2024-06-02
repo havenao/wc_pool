@@ -1,4 +1,7 @@
 class PlayersController < ApplicationController
+  skip_before_action :ensure_player_profile, only: [:new, :create]
+  before_action :ensure_single_player_profile, only: [:new, :create]
+
   def index
     @players = Player.order(points: :desc)
   end
@@ -11,15 +14,17 @@ class PlayersController < ApplicationController
 
   def new
     @player = Player.new
-    @players = Player.order(name: :asc).all
+    # @players = Player.order(name: :asc).all
   end
 
   def create
-    @player = Player.new(player_params.merge({points: 0}))
+    @player = Player.new(player_params)
+    @player.user = current_user
 
     if @player.save
       redirect_to new_player_path
     else
+      flash[:alert] = @player.errors.full_messages
       render :new, status: :unprocessable_entity
     end
   end
@@ -49,6 +54,14 @@ class PlayersController < ApplicationController
 
   private 
     def player_params
-      params.require(:player).permit(:name, :points)
+      params.require(:player).permit(:name)
+    end
+
+    def ensure_single_player_profile
+      puts current_user.inspect
+      if current_user.player.present?
+        puts "uh oh"
+        redirect_to current_user.player, alert: 'You already have a player profile.'
+      end
     end
 end

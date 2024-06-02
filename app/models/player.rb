@@ -1,4 +1,5 @@
 class Player < ApplicationRecord
+  belongs_to :user
   has_many :shares
   has_many :teams, through: :shares
 
