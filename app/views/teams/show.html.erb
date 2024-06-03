@@ -1,6 +1,5 @@
 <div class="d-flex flex-row justify-content-between align-items-start">
   <h1><%= @team.name %></h1>
-  <%= link_to "Teams", teams_path, class: "btn btn-dark" %>
 </div>
 
 <hr class="hr">
@@ -18,7 +17,7 @@
           <tr>
             <th scope="col">Player</th>
             <th scope="col">Shares</th>
-            <th scope="col">Stakes</th>
+            <th scope="col">Equity</th>
             <th scope="col">Points</th>
           </tr>
         </thead>
@@ -49,7 +48,11 @@
       <% if @results.count > 0 %>
           <% @results.each do |result| %>
             <tr>
+              <% if result.opponent %>
               <td><%= result.text %> vs. <%= link_to result.opponent.name, result.opponent %></td>
+              <% else %>
+              <td><%= result.text %></td>
+              <% end %>
               <td><%= result.points %></td>
             </tr>
         <% end %>
@@ -66,7 +69,7 @@
       <%= form_with url: "/add_result", method: :post do |form| %>
         <div class="mb-3">
           <%= form.label :text, {}, class: "form-label" %>
-          <%= form.select :text, ["Group Stage Draw", "Group Stage Win", "Group Stage Runner-Up", "Group Stage Champion", "First Knockout Win", "Quarter-Final Win", "Semi-Final Win", "Cup Champion"], {}, class: "form-select" %>
+          <%= form.select :text, @result_options, {}, class: "form-select" %>
           <%= form.hidden_field :id, value: @team.id %><br>
 
           <%= form.label :opponent, {}, class: "form-label" %>
@@ -79,5 +82,5 @@
       <% end %>
     </div>
   <% end %>
-  
+
 <% end %>

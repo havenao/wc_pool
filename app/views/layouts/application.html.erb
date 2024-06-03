@@ -13,20 +13,22 @@
   </head>
 
   <body>
+    <%= render 'layouts/nav' %>
     <div class="container mt-3">
-    <!-- Display flash notices -->
-    <% if flash[:notice].present? %>
-      <div class="flash-notice">
-        <%= flash[:notice] %>
-      </div>
-    <% end %>
+      <!-- Display flash notices -->
+      <% if flash[:notice].present? %>
+        <div class="flash-notice">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
 
-    <!-- Display flash alerts -->
-    <% if flash[:alert].present? %>
-      <div class="flash-alert">
-        <%= flash[:alert] %>
-      </div>
-    <% end %>
+      <!-- Display flash alerts -->
+      <% if flash[:alert].present? %>
+        <div class="flash-alert">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+
       <%= yield %>
     </div>
   </body>
