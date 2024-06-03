@@ -6,8 +6,8 @@ class TeamsController < ApplicationController
   end
 
   def show
-    @teams = Team.order(name: :asc).all
     @team = Team.find(params[:id])
+    @teams = Team.all.order(name: :asc).reject { |t| t == @team }
     @results = Result.where(team_id: @team.id)
     @shares = Share.where(team_id: @team.id).order(amount: :desc)
   end
@@ -53,24 +53,14 @@ class TeamsController < ApplicationController
     # text from form... Must match a text key in result hash below.
     text = params[:text]
 
-    result_hash = {
-      "Loss" => 0,
-      "Group Stage Draw" => 100,
-      "Group Stage Win" => 200,
-      "Group Stage Runner-Up" => 200,
-      "Group Stage Champion" => 400,
-      "First Knockout Win" => 400,
-      "Quarter-Final Win" => 900,
-      "Semi-Final Win" => 1200,
-      "Cup Champion" => 1500,
-    }
+    map = Result.points_map
 
     if(text == "Group Stage Draw")
-      Result.create({:team_id => @team.id, :opponent_id => opponent.id, :text => text, :points => result_hash[text]})
-      Result.create({:team_id => opponent.id, :opponent_id => @team.id, :text => text, :points => result_hash[text]})
+      Result.create({:team_id => @team.id, :opponent_id => opponent.id, :text => text, :points => map[text]})
+      Result.create({:team_id => opponent.id, :opponent_id => @team.id, :text => text, :points => map[text]})
     else
-      Result.create({:team_id => @team.id, :opponent_id => opponent.id, :text => text, :points => result_hash[text]})    
-      Result.create({:team_id => opponent.id, :opponent_id => @team.id, :text => "Loss", :points => result_hash["Loss"]})
+      Result.create({:team_id => @team.id, :opponent_id => opponent.id, :text => text, :points => map[text]})    
+      Result.create({:team_id => opponent.id, :opponent_id => @team.id, :text => "Loss", :points => map["Loss"]})
     end
 
     @team.update_points

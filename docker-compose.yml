@@ -9,6 +9,8 @@ services:
       - .:/app
     depends_on:
       - db
+    env_file:
+      - .env
   db:
     image: ruby:3.1.2
     command: tail -f /dev/null

@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   resources :players
   post "/invest", to: "players#invest"
   resources :results
+  resources :shares, only: [:destroy]
 end
