@@ -10,12 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_22_000354) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_03_012340) do
   create_table "players", force: :cascade do |t|
     t.string "name"
     t.integer "points"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "credits", default: 100
+    t.index ["name"], name: "index_players_on_name", unique: true
+    t.index ["user_id"], name: "index_players_on_user_id"
   end
 
   create_table "results", force: :cascade do |t|
@@ -47,6 +51,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_22_000354) do
     t.string "group"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "admin", default: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  add_foreign_key "players", "users"
   add_foreign_key "results", "teams"
   add_foreign_key "shares", "players"
   add_foreign_key "shares", "teams"

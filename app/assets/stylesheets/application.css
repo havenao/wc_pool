@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+
+.flash-alert {
+  background-color: rgb(250, 137, 129);
+  padding: .5rem 1rem;
+  margin-bottom: .5rem;
+}
+.flash-notice {
+  background-color: rgb(121, 255, 133);
+  padding: .5rem 1rem;
+  margin-bottom: .5rem;
+}

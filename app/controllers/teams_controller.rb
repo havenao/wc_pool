@@ -1,14 +1,16 @@
 class TeamsController < ApplicationController
   def index
     teams = Team.order(points: :desc)
-    @top_teams = teams.slice(0, 16)
-    @bottom_teams = teams.slice(16, 31)
+    @top_teams = teams.slice(0, 12)
+    @bottom_teams = teams.slice(12, 23)
   end
 
   def show
-    @teams = Team.order(name: :asc).all
     @team = Team.find(params[:id])
+    @teams = Team.all.order(name: :asc).reject { |t| t == @team }
     @results = Result.where(team_id: @team.id)
+    @result_options = Result.points_map.keys
+
     @shares = Share.where(team_id: @team.id).order(amount: :desc)
   end
 
@@ -45,6 +47,7 @@ class TeamsController < ApplicationController
   end
 
   def add_result
+    return unless current_user.admin?
     # Get team and opponent
     @team = Team.find(params[:id])
     opponent = Team.where(name: params[:opponent]).take
@@ -52,28 +55,23 @@ class TeamsController < ApplicationController
     # text from form... Must match a text key in result hash below.
     text = params[:text]
 
-    result_hash = {
-      "Loss" => 0,
-      "Group Stage Draw" => 100,
-      "Group Stage Win" => 200,
-      "Group Stage Runner-Up" => 200,
-      "Group Stage Champion" => 400,
-      "First Knockout Win" => 400,
-      "Quarter-Final Win" => 900,
-      "Semi-Final Win" => 1200,
-      "Cup Champion" => 1500,
-    }
-
-    if(text == "Group Stage Draw")
-      Result.create({:team_id => @team.id, :opponent_id => opponent.id, :text => text, :points => result_hash[text]})
-      Result.create({:team_id => opponent.id, :opponent_id => @team.id, :text => text, :points => result_hash[text]})
+    map = Result.points_map
+    puts "RESULT:"
+    puts text
+    if text.include? "Bonus"
+      puts "Bonus Included!"
+      result = Result.create({:team_id => @team.id, :text => text, :points => map[text]})
+      puts result.errors.full_messages
+    elsif(text == "Group Stage Draw")
+      Result.create({:team_id => @team.id, :opponent_id => opponent.id, :text => text, :points => map[text]})
+      Result.create({:team_id => opponent.id, :opponent_id => @team.id, :text => text, :points => map[text]})
     else
-      Result.create({:team_id => @team.id, :opponent_id => opponent.id, :text => text, :points => result_hash[text]})    
-      Result.create({:team_id => opponent.id, :opponent_id => @team.id, :text => "Loss", :points => result_hash["Loss"]})
+      Result.create({:team_id => @team.id, :opponent_id => opponent.id, :text => text, :points => map[text]})    
+      Result.create({:team_id => opponent.id, :opponent_id => @team.id, :text => "Loss", :points => map["Loss"]})
     end
 
     @team.update_points
-    opponent.update_points
+    opponent.update_points unless text.include? "Bonus"
 
     # I believe Shares needs to update beforw player for accurate scoring.
     Share.update_points

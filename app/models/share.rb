@@ -29,7 +29,6 @@ class Share < ApplicationRecord
     team.points * player_stake
   end
 
-
   def self.update_points
     shares = Share.all
 
