@@ -11,19 +11,22 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2024_06_03_012340) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "players", force: :cascade do |t|
     t.string "name"
     t.integer "points"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.integer "credits", default: 100
     t.index ["name"], name: "index_players_on_name", unique: true
     t.index ["user_id"], name: "index_players_on_user_id"
   end
 
   create_table "results", force: :cascade do |t|
-    t.integer "team_id", null: false
+    t.bigint "team_id", null: false
     t.string "text"
     t.integer "points"
     t.datetime "created_at", null: false
@@ -36,8 +39,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_03_012340) do
     t.integer "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "player_id", null: false
-    t.integer "team_id", null: false
+    t.bigint "player_id", null: false
+    t.bigint "team_id", null: false
     t.integer "points"
     t.index ["player_id"], name: "index_shares_on_player_id"
     t.index ["team_id"], name: "index_shares_on_team_id"

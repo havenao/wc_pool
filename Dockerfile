@@ -8,8 +8,7 @@ WORKDIR /app
 RUN apt-get update -qq && apt-get install -y \
     build-essential \
     nodejs \
-    sqlite3 \
-    libsqlite3-dev
+    postgresql-client
 
 # Copy the Gemfile and Gemfile.lock into the container
 COPY Gemfile Gemfile.lock ./

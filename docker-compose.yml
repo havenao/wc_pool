@@ -9,10 +9,17 @@ services:
       - .:/app
     depends_on:
       - db
-    env_file:
-      - .env
+    environment:
+      - BETTING_CLOSED=false
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=MySuperPassword
   db:
-    image: ruby:3.1.2
-    command: tail -f /dev/null
+    container_name: postgres-wc
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=MySuperPassword
+    ports:
+      - "5433:5432"
     volumes:
-      - .:/app
+      - ./tmp/db:/var/lib/postgresql/data
