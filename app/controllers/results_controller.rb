@@ -52,6 +52,6 @@ class ResultsController < ApplicationController
     end
 
     def check_admin
-      redirect_to results_url unless current_user.admin?
+      redirect_to results_url unless current_user&.admin?
     end
 end

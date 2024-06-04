@@ -73,10 +73,10 @@ class PlayersController < ApplicationController
     end
 
     def ensure_single_player_profile
-      puts current_user.inspect
-      if current_user.player.present?
+      puts current_user&.inspect
+      if current_user&.player.present?
         puts "uh oh"
-        redirect_to current_user.player, alert: 'You already have a player profile.'
+        redirect_to current_user&.player, alert: 'You already have a player profile.'
       end
     end
 end

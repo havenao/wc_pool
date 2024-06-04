@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_player_profile
-    if current_user && current_user.player.nil?
+    if current_user && current_user&.player.nil?
       redirect_to new_player_path
     end
   end

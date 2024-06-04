@@ -34,16 +34,16 @@ teams = [
 ]
 
 users = [
-  { email: 'haven@example.com', password: 'poopoo', admin: true },
-  { email: 'atlee@example.com', password: 'peepee', admin: false },
-  { email: 'dagan@example.com', password: 'poopee', admin: false },
+  { email: 'haven@example.com', password: ENV['ADMIN_PASSWORD'], admin: true },
+  # { email: 'atlee@example.com', password: 'peepee', admin: false },
+  # { email: 'dagan@example.com', password: 'poopee', admin: false },
 ]
 puts "Created Users" if User.create(users)
 
 players = [
-  {name: "Atlee", points: 0, user_id: User.find_by(email: 'atlee@example.com').id},
-  {name: "Dagan", points: 0, user_id: User.find_by(email: 'dagan@example.com').id},
-  {name: "Haven", points: 0, user_id: User.find_by(email: 'haven@example.com').id},
+  # {name: "Atlee", points: 0, user_id: User.find_by(email: 'atlee@example.com').id},
+  # {name: "Dagan", points: 0, user_id: User.find_by(email: 'dagan@example.com').id},
+  # {name: "Haven", points: 0, user_id: User.find_by(email: 'haven@example.com').id},
 ]
 
 puts "Added all teams." if Team.create(teams)

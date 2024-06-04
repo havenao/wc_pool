@@ -47,7 +47,7 @@ class TeamsController < ApplicationController
   end
 
   def add_result
-    return unless current_user.admin?
+    return unless current_user&.admin?
     # Get team and opponent
     @team = Team.find(params[:id])
     opponent = Team.where(name: params[:opponent]).take

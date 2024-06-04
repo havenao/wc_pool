@@ -64,7 +64,7 @@
       <% end %>
   </table>
 
-  <% if current_user.admin? %>
+  <% if current_user&.admin? %>
     <div class="container text-bg-light p-3">
       <h5>Create Result</h5>
       <%= form_with url: "/add_result", method: :post do |form| %>
