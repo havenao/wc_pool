@@ -4,7 +4,7 @@
 <hr class="hr">
 
 
-<% if @player.credits > 0 %>
+<% unless @tourny_started %>
   <h3 class="mb-3"> Credits Remaining: <%= @player.credits %></h3>
 <% else %>
   <h3><%= ApplicationHelper.strip_trailing_zero @player.get_point_total.round(2) %> Points</h3>
@@ -22,12 +22,14 @@
           <tr>
             <th scope="col">Team</th>
             <th scope="col">Shares</th>
-            <th scope="col">Equity</th>
-            <% unless @debug_mode || @tourny_started %>
-              <th scope="col">Actions</th>
-            <% else %>
+            <% if @debug_mode || @tourny_started %>
+              <th scope="col">Equity</th>
               <th scope="col">Points Earned</th>
             <% end %>
+            <% if @debug_mode || !@tourny_started %>
+              <th scope="col">Delete</th>
+            <% end %>
+
           </tr>
         </thead>
         <tbody>
@@ -35,16 +37,19 @@
           <tr>
             <td><%= link_to share.team.name, share.team %></td>
             <td><%= share.amount %></td>
-            <td><%= ApplicationHelper.strip_trailing_zero share.player_stake_percent.round(2) %>%</td>
-            <td>
-              <% unless @debug_mode || @tourny_started %>
+            <% if @debug_mode || @tourny_started %>
+              <td><%= ApplicationHelper.strip_trailing_zero share.player_stake_percent.round(2) %>%</td>
+              <td>
+                  + <%= ApplicationHelper.strip_trailing_zero  share.player_points.round(2) %>
+              </td>
+            <% end %>
+            <% if @debug_mode || !@tourny_started %>
+              <td>
                 <%= form_with model: share, method: :delete, url: share_path(share), data: { confirm: 'Are you sure?' } do |form| %>
-                  <%= form.submit 'Delete', class: 'btn btn-danger' %>
+                  <%= form.submit 'X', class: 'btn btn-danger' %>
                 <% end %>
-              <% else %>
-                + <%= ApplicationHelper.strip_trailing_zero  share.player_points.round(2) %>
-              <% end %>
-            </td>
+              </td>
+            <% end %>
           </tr>
           <% end %>
         </tbody>
@@ -56,7 +61,7 @@
   
 </div>
 
-<% if (@player == current_user.player && !@tourny_started) || @debug_mode %>
+<% if @debug_mode || (@player == current_user.player && !@tourny_started)%>
   <div class="container text-bg-light p-3">
     <h5>Invest</h5>
     <%= form_with url: "/invest", method: :post do |form| %>

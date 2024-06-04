@@ -1,6 +1,7 @@
-<div class="d-flex flex-row justify-content-between align-items-start">
+<div class="d-flex flex-row justify-content-between align-items-center">
   <h1><%= @team.name %></h1>
 </div>
+<h6>Group <%= @team.group %></h6>
 
 <hr class="hr">
 <h3 class="mb-3"> Total Points: <%= @team.get_point_total %></h3>
@@ -9,7 +10,7 @@
 <div class="mb-3">
   <h4>Shares</h4>
   <% unless @debug_mode || @tourny_started %>
-    <div>Hidden until June 15th</div>
+    <div>Hidden until June 14th</div>
   <% else %>
     <table class="table">
       <% if @shares.count > 0 %>

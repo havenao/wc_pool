@@ -13,6 +13,7 @@ services:
       - BETTING_CLOSED=false
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=MySuperPassword
+      - DEBUG_MODE=false
   db:
     container_name: postgres-wc
     image: postgres

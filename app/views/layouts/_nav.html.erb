@@ -1,20 +1,19 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light pe-2 ps-2">
-  <div class="container-fluid">
-    <a class="navbar-brand p-0 m-0" href="#">
-      <h6 class="m-0"><strong>EuroCup</strong>2024</h6>
-      <h5 class="m-0">INVE<strong>STARS</strong></h5>
-    </a>
-  </div>
+<nav class="navbar navbar-light bg-light pe-2 ps-2 d-flex flex-row justify-content-between sticky-top">
+  <a class="navbar-brand p-0 m-0 ps-2" href="#">
+    <h6 class="m-0"><strong>EuroCup</strong>2024</h6>
+    <h5 class="m-0">INVE<strong>STARS</strong></h5>
+  </a>
 
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <%= link_to 'Players', players_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'Teams', teams_path, class: 'nav-link' %>
-      </li>
-    </ul>
-  </div>
+  <ul class="navbar-nav d-flex flex-row ">
+    <li class="nav-item pe-2">
+      <%= link_to 'Players', players_path, class: 'btn btn-dark' %>
+    </li>
+    <li class="nav-item pe-2">
+      <%= link_to 'Teams', teams_path, class: 'btn btn-dark' %>
+    </li>
+    <li class="nav-item pe-2">
+      <%= link_to 'Me', player_path(current_user.player), class: 'btn btn-success' %>
+    </li>
+  </ul>
 
 </nav>

@@ -46,7 +46,8 @@ class PlayersController < ApplicationController
 
   def invest
     @player = Player.find(params[:player])
-    raise StandardError, "Investment must be positive amount!" if params[:amount].to_i <= 0
+    raise StandardError, "Amount must be positive number!" unless params[:amount].to_i > 0
+    raise StandardError, "Amount cannot exceed 100!" if params[:amount].to_i > 100
 
     if found = @player.shares.find { |s| s.team.id == params[:team].to_i}
       raise StandardError, "You already have shares for #{found.team.name}!"
