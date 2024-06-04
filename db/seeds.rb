@@ -4,6 +4,7 @@ Share.destroy_all
 Result.destroy_all
 Team.destroy_all
 Player.destroy_all
+User.destroy_all
 
 teams = [
   {name: "Germany", points: 0, group: "A"},
@@ -32,30 +33,18 @@ teams = [
   {name: "Czechia", points: 0, group: "F"},
 ]
 
+users = [
+  { email: 'haven@example.com', password: 'poopoo', admin: true },
+  { email: 'atlee@example.com', password: 'peepee', admin: false },
+  { email: 'dagan@example.com', password: 'poopee', admin: false },
+]
+puts "Created Users" if User.create(users)
+
 players = [
-  {name: "Alex", points: 0},
-  {name: "Andre", points: 0},
-  {name: "Andy", points: 0},
-  {name: "Atlee", points: 0},
-  {name: "Beth", points: 0},
-  {name: "Dagan", points: 0},
-  {name: "Haven", points: 0},
-  {name: "Isaac", points: 0},
-  {name: "JSB", points: 0},
-  {name: "Katie", points: 0},
-  {name: "Loewen", points: 0},
-  {name: "Ned", points: 0},
+  {name: "Atlee", points: 0, user_id: User.find_by(email: 'atlee@example.com').id},
+  {name: "Dagan", points: 0, user_id: User.find_by(email: 'dagan@example.com').id},
+  {name: "Haven", points: 0, user_id: User.find_by(email: 'haven@example.com').id},
 ]
 
-Team.create(teams)
-puts "Added all teams."
-Player.create(players)
-puts "Added all players."
-
-def player_id(name)
-  Player.where(name: name).id
-end
-
-def team_id(name)
-  Team.where(name: name).id
-end
+puts "Added all teams." if Team.create(teams)
+puts "Added all players." if Player.create(players).inspect
