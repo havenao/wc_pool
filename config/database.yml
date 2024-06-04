@@ -18,5 +18,5 @@ production:
   <<: *default
   host: <%= ENV.fetch("APP_DATABASE_HOST") { "db" } %>
   database: wc_pool_production
-  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
-  username: <%= ENV['APP_DATABASE_PASSWORD'] %>
+  password: <%= ENV['PRODUCTION_PG_PASSWORD'] %>
+  username: <%= ENV['PRODUCTION_PG_USERNAME'] %>
