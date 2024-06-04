@@ -13,7 +13,7 @@
 <hr class="hr">
 <div class="mb-3">
   <h4>Shares</h4>
-  <% unless current_user.player == @player || @tourny_started %>
+  <% unless @debug_mode || current_user.player == @player || @tourny_started %>
     <div>Hidden until June 14th</div>
   <% else %>
     <table class="table">
@@ -23,7 +23,7 @@
             <th scope="col">Team</th>
             <th scope="col">Shares</th>
             <th scope="col">Equity</th>
-            <% unless @tourny_started %>
+            <% unless @debug_mode || @tourny_started %>
               <th scope="col">Actions</th>
             <% else %>
               <th scope="col">Points Earned</th>
@@ -37,7 +37,7 @@
             <td><%= share.amount %></td>
             <td><%= ApplicationHelper.strip_trailing_zero share.player_stake_percent.round(2) %>%</td>
             <td>
-              <% unless @tourny_started %>
+              <% unless @debug_mode || @tourny_started %>
                 <%= form_with model: share, method: :delete, url: share_path(share), data: { confirm: 'Are you sure?' } do |form| %>
                   <%= form.submit 'Delete', class: 'btn btn-danger' %>
                 <% end %>
@@ -56,7 +56,7 @@
   
 </div>
 
-<% if @player == current_user.player && !@tourny_started %>
+<% if (@player == current_user.player && !@tourny_started) || @debug_mode %>
   <div class="container text-bg-light p-3">
     <h5>Invest</h5>
     <%= form_with url: "/invest", method: :post do |form| %>
@@ -64,14 +64,14 @@
         <%= form.hidden_field :player, value: @player.id %><br>
 
         <%= form.label :team, {}, class: "form-label" %><br>
-        <%= form.select :team, @teams.map{|team| [team.name, team.id]}, {}, class: "form-select" %><br>
+        <%= form.select :team, @unbought_teams.map{|t| [t.name, t.id]}, {}, class: "form-select" %><br>
 
         <%= form.label :amount, {}, class: "form-label"  %><br>
-        <%= form.select :amount, [10, 20, 30, 40, 50], {}, class: "form-select" %>
+        <%= form.number_field :amount, value: @player.credits, class: "form-control" %>
       </div>
 
       <div>
-        <%= form.submit %>
+        <%= form.submit 'Invest!', class: "btn btn-success" %>
       </div>
     <% end %>
   </div>

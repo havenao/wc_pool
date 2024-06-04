@@ -1,6 +1,7 @@
 class Share < ApplicationRecord
   belongs_to :player
   belongs_to :team
+  validate :valid_amount
 
   def team_shares
     Share.where(team_id: team_id)
@@ -36,5 +37,10 @@ class Share < ApplicationRecord
       points = share.player_points
       share.update(:points => points)
     end
+  end
+
+  def valid_amount
+    raise StandardError, 'Amount must be positive number' unless amount > 0
+    raise StandardError, 'Amount cannot exceed 100' if amount > 100
   end
 end

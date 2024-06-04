@@ -8,8 +8,9 @@ class PlayersController < ApplicationController
   end
   
   def show
-    @teams = Team.order(name: :asc).all
-    @shares = Share.where(player_id: @player.id).order(points: :desc, amount: :desc)    
+    player_team_ids = @player.shares.map{|s| s.team_id }
+    @unbought_teams = Team.order(name: :asc).reject{|t| player_team_ids.include?(t.id) }
+    @shares = Share.where(player_id: @player.id).order(points: :desc, amount: :desc)
   end
 
   def new
@@ -45,6 +46,7 @@ class PlayersController < ApplicationController
 
   def invest
     @player = Player.find(params[:player])
+    raise StandardError, "Investment must be positive amount!" if params[:amount].to_i <= 0
 
     if found = @player.shares.find { |s| s.team.id == params[:team].to_i}
       raise StandardError, "You already have shares for #{found.team.name}!"

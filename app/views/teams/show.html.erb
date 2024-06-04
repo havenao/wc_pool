@@ -8,7 +8,7 @@
 <hr class="hr">
 <div class="mb-3">
   <h4>Shares</h4>
-  <% unless @tourny_started %>
+  <% unless @debug_mode || @tourny_started %>
     <div>Hidden until June 15th</div>
   <% else %>
     <table class="table">

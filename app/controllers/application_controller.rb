@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def set_global_variables
     @tourny_started = ENV['BETTING_CLOSED'] == 'true'
-    # @tourny_started = true
+    @debug_mode = true
   end
 
   def ensure_player_profile
