@@ -1,6 +1,6 @@
 class Result < ApplicationRecord
   belongs_to :team, :class_name => 'Team'
-  belongs_to :opponent, :class_name => 'Team'
+  belongs_to :opponent, :class_name => 'Team', optional: true
 
   def self.points_map
     {
