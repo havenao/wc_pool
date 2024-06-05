@@ -15,7 +15,6 @@ class PlayersController < ApplicationController
 
   def new
     @player = Player.new
-    # @players = Player.order(name: :asc).all
   end
 
   def create
@@ -46,8 +45,10 @@ class PlayersController < ApplicationController
 
   def invest
     @player = Player.find(params[:player])
+  
+    raise StandardError, "Max 6 investments!" if @player.shares.count >= 6
     raise StandardError, "Amount must be positive number!" unless params[:amount].to_i > 0
-    raise StandardError, "Amount cannot exceed 100!" if params[:amount].to_i > 100
+    raise StandardError, "Amount cannot exceed 50!" if params[:amount].to_i > 50
 
     if found = @player.shares.find { |s| s.team.id == params[:team].to_i}
       raise StandardError, "You already have shares for #{found.team.name}!"

@@ -72,7 +72,7 @@
         <%= form.select :team, @unbought_teams.map{|t| [t.name, t.id]}, {}, class: "form-select" %><br>
 
         <%= form.label :amount, {}, class: "form-label"  %><br>
-        <%= form.number_field :amount, value: @player.credits, class: "form-control" %>
+        <%= form.number_field :amount, value: @player.credits > 50 ? 50 : @player.credits, class: "form-control" %>
       </div>
 
       <div>
