@@ -1,10 +1,10 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-Share.destroy_all
-Result.destroy_all
-Team.destroy_all
-Player.destroy_all
-User.destroy_all
+# Share.destroy_all
+# Result.destroy_all
+# Team.destroy_all
+# Player.destroy_all
+# User.destroy_all
 
 teams = [
   {name: "Germany", points: 0, group: "A"},
@@ -34,17 +34,22 @@ teams = [
 ]
 
 users = [
-  { email: 'haven@example.com', password: ENV['ADMIN_PASSWORD'], admin: true },
+  { email: ENV['ADMIN_EMAIL'], password: ENV['ADMIN_PASSWORD'], admin: true },
   # { email: 'atlee@example.com', password: 'peepee', admin: false },
   # { email: 'dagan@example.com', password: 'poopee', admin: false },
 ]
-puts "Created Users" if User.create(users)
+unless User.all.count > 0
+  puts "Created Users" if user = User.create(users).first
+  puts user.errors.full_messages
+end
 
 players = [
   # {name: "Atlee", points: 0, user_id: User.find_by(email: 'atlee@example.com').id},
   # {name: "Dagan", points: 0, user_id: User.find_by(email: 'dagan@example.com').id},
   # {name: "Haven", points: 0, user_id: User.find_by(email: 'haven@example.com').id},
 ]
+unless Team.all.count > 0
+  puts "Added all teams." if Team.create(teams)
+end
 
-puts "Added all teams." if Team.create(teams)
-puts "Added all players." if Player.create(players).inspect
+# puts "Added all players." if Player.create(players).inspect
