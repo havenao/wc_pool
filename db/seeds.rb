@@ -1,8 +1,8 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 if ENV['PURGE_DB'] == 'true'
-  # Share.destroy_all
-  # Result.destroy_all
+  Share.destroy_all
+  Result.destroy_all
   Team.destroy_all
   Player.destroy_all
   User.destroy_all
@@ -29,7 +29,7 @@ teams = [
   {name: "Slovakia", points: 0, group: "E"},
   {name: "Romania", points: 0, group: "E"},
   {name: "Ukraine", points: 0, group: "E"},
-  {name: "Turkey", points: 0, group: "F"},
+  {name: "Türkiye", points: 0, group: "F"},
   {name: "Georgia", points: 0, group: "F"},
   {name: "Portugal", points: 0, group: "F"},
   {name: "Czechia", points: 0, group: "F"},

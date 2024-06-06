@@ -1,15 +1,15 @@
 class TeamsController < ApplicationController
   def index
-    teams = Team.order(points: :desc)
-    @top_teams = teams.slice(0, 12)
-    @bottom_teams = teams.slice(12, 23)
+    @teams = Team.order(points: :desc)
+    @team_groups = @teams.group_by(&:group)
+    @knockout_stage = Result.where("text LIKE ?", "%Round of Sixteen%").exists?
   end
 
   def show
     @team = Team.find(params[:id])
     @teams = Team.all.order(name: :asc).reject { |t| t == @team }
     @results = Result.where(team_id: @team.id)
-    @result_options = Result.points_map.keys
+    @result_options = Result.points_map.keys.reject { |k| k == "Loss" }
 
     @shares = Share.where(team_id: @team.id).order(amount: :desc)
   end
@@ -56,12 +56,8 @@ class TeamsController < ApplicationController
     text = params[:text]
 
     map = Result.points_map
-    puts "RESULT:"
-    puts text
     if text.include? "Bonus"
-      puts "Bonus Included!"
       result = Result.create({:team_id => @team.id, :text => text, :points => map[text]})
-      puts result.errors.full_messages
     elsif(text == "Group Stage Draw")
       Result.create({:team_id => @team.id, :opponent_id => opponent.id, :text => text, :points => map[text]})
       Result.create({:team_id => opponent.id, :opponent_id => @team.id, :text => text, :points => map[text]})

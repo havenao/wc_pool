@@ -1,16 +1,29 @@
-<div class="mb-3 d-flex flex-row justify-content-start">
-  <ul class="list-group flex-grow-1 me-3">
-    <% @top_teams.each do |team| %>
-      <li class="list-group-item">
-        <span><%= link_to team.name, team %>: <%= team.points %></span>
-      </li>
-    <% end %>
-  </ul>
-  <ul class="list-group flex-grow-1">
-    <% @bottom_teams.each do |team| %>
-      <li class="list-group-item">
-        <span><%= link_to team.name, team %>: <%= team.points %></span>
-      </li>
-    <% end %>
-  </ul>
-</div>
+<% if @knockout_stage %>
+  <div class="mb-3 d-flex flex-row justify-content-start">
+    <ul class="list-group flex-grow-1 pe-3"> 
+      <% @teams[0...(@teams.size / 2)].each do |team| %>
+        <li class="list-group-item"><%= link_to team.name, team %>: <%= team.points %></span></li>
+      <% end %>
+    </ul>
+    <ul class="list-group flex-grow-1"> 
+      <% @teams[(@teams.size / 2)..-1].each do |team| %>
+        <li class="list-group-item"><%= link_to team.name, team %>: <%= team.points %></span></li>
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+  <div class="container">
+    <div class="d-flex flex-wrap">
+      <% @team_groups.each do |group, teams| %>
+        <div class="col-12 col-md-4 mb-2">
+          <h3><%= group %></h3>
+          <ul class="list-group flex-grow-1 me-3">
+            <% teams.each do |team|%>
+              <li class="list-group-item"><%= link_to team.name, team %>: <%= team.points %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
