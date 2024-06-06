@@ -55,10 +55,12 @@ class PlayersController < ApplicationController
       raise StandardError, "You already have shares for #{found.team.name}!"
     end
 
-    @player.spend_credits(params[:amount])
-    share = Share.create({:amount => params[:amount], :player_id => params[:player], :team_id => params[:team]})
+    ActiveRecord::Base.transaction do
+      @player.spend_credits(params[:amount])
+      share = Share.create({:amount => params[:amount], :player_id => params[:player], :team_id => params[:team]})
+      flash[:notice] = "Bought #{share.amount} shares for #{share.team.name}"
+    end
 
-    flash[:notice] = "Bought #{share.amount} shares for #{share.team.name}"
     redirect_to @player
   rescue StandardError => e
     flash[:alert] = e.message
