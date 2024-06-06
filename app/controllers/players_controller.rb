@@ -11,6 +11,7 @@ class PlayersController < ApplicationController
     player_team_ids = @player.shares.map{|s| s.team_id }
     @unbought_teams = Team.order(name: :asc).reject{|t| player_team_ids.include?(t.id) }
     @shares = Share.where(player_id: @player.id).order(points: :desc, amount: :desc)
+    @amounts = (5..50).step(5).select { |i| i <= @player.credits }.reverse
   end
 
   def new
