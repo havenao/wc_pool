@@ -4,7 +4,7 @@
 <h6>Group <%= @team.group %></h6>
 
 <hr class="hr">
-<h3 class="mb-3"> Total Points: <%= @team.get_point_total %></h3>
+<h3 class="mb-3"> Total Points: <%= @team.points %></h3>
 
 <hr class="hr">
 <div class="mb-3">
@@ -27,8 +27,8 @@
           <tr>
             <td><%= link_to share.player.name, share.player %></td>
             <td><%= share.amount %></td>
-            <td><%= ApplicationHelper.strip_trailing_zero share.player_stake_percent.round(2) %>%</td>
-            <td>+ <%= ApplicationHelper.strip_trailing_zero  share.player_points.round(2) %></td>
+            <td><%= ApplicationHelper.strip_trailing_zero share.player_equity_percent.round(2) %>%</td>
+            <td>+ <%= ApplicationHelper.strip_trailing_zero  share.points.round(2) %></td>
           </tr>
           <% end %>
         </tbody>        

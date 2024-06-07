@@ -1,0 +1,27 @@
+<% if current_user&.admin? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Team</th>
+        <th scope="col">Result</th>
+        <th scope="col">Opponent</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+      <tbody>
+      <% @results.each do |result| %>
+      <tr>
+          <td><%= result.team.name %></td>
+          <td><%= result.text %></td>
+          <td><%= result.opponent&.name %></td>
+          <td>
+            <%= form_with model: result, method: :delete, url: result_path(result), data: { turbo: false } do |form| %>
+              <%= form.submit 'X', class: 'btn btn-danger p-0 ps-2 pe-2' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+

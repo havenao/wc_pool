@@ -49,11 +49,9 @@ class TeamsController < ApplicationController
   def add_result
     return unless current_user&.admin?
     ActiveRecord::Base.transaction do
-      # Get team and opponent
       @team = Team.find(params[:id])
       opponent = Team.where(name: params[:opponent]).take
 
-      # text from form... Must match a text key in result hash below.
       text = params[:text]
 
       map = Result.points_map
@@ -66,13 +64,6 @@ class TeamsController < ApplicationController
         Result.create({:team_id => @team.id, :opponent_id => opponent.id, :text => text, :points => map[text]})    
         Result.create({:team_id => opponent.id, :opponent_id => @team.id, :text => "Loss", :points => map["Loss"]})
       end
-
-      @team.update_points
-      opponent.update_points unless text.include? "Bonus"
-
-      # I believe Shares needs to update beforw player for accurate scoring.
-      Share.update_points
-      Player.update_points
     end
 
     redirect_to @team
