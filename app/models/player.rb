@@ -10,9 +10,7 @@ class Player < ApplicationRecord
   end
 
   def points
-    @points ||= shares.inject(0) do |total , share|
-      total + share.points
-    end
+    @points ||= shares.inject(0) { |total , share| total + share.points } || 0
   end
 
   def spend_credits(amount)

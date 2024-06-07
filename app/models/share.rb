@@ -4,7 +4,7 @@ class Share < ApplicationRecord
   validate :valid_amount
 
   def points
-    @points ||= team.points * player_equity
+    @points ||= (team.points * player_equity) || 0
   end
 
   def player_equity
@@ -17,9 +17,7 @@ class Share < ApplicationRecord
 
   private
     def team_total_amount
-      shares_for_team.inject(0) do |total , share|
-        total + share.amount
-      end
+      shares_for_team.inject(0) { |total , share| total + share.amount }
     end
 
     def shares_for_team

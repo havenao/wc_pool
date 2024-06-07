@@ -5,8 +5,6 @@ class Team < ApplicationRecord
   validates :name, presence: true
 
   def points
-    @points ||= Result.where(team_id: self.id).inject(0) do |total, result|
-      total + result.points
-    end
+    @points ||= Result.where(team_id: self.id).inject(0) { |total, result| total + result.points } || 0
   end
 end
