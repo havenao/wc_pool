@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   before_action :ensure_player_profile, unless: :devise_controller?
   before_action :set_global_variables
 
+  def index
+    
+  end
+
   private
 
   def set_global_variables

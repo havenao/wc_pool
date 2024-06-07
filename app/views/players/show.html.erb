@@ -1,9 +1,15 @@
-<div class="d-flex flex-row justify-content-between align-items-start">
-  <h1><%= @player.name %></h1>
-  <% if current_user&.player && current_user&.player == @player %>
-    <%= link_to "Sign Out", destroy_user_session_path, data: { turbo_method: :delete }, class: 'btn btn-danger'  %>
-  <% end %>
+<div class="d-flex flex-row flex-wrap justify-content-between align-items-end">
+  <h1 class="m-0"><%= @player.display_name %></h1>
+  <div>
+    <% if current_user&.player && current_user&.player == @player %>
+      <%= link_to "Edit", edit_player_path(@player), class: 'btn btn-secondary p-0 ps-2 pe-2'  %>
+      <%= link_to "Sign Out", destroy_user_session_path, data: { turbo_method: :delete }, class: 'btn btn-danger p-0 ps-2 pe-2'  %>
+    <% end %>
+  </div>
 </div>
+  <% unless @player.name == @player.display_name  %>
+    <h6 class="m-0">(<%= @player.name %>)</h6>
+  <% end %>
 <hr class="hr">
 
 <% unless @tourny_started %>
@@ -48,7 +54,7 @@
             <% if @debug_mode || !@tourny_started %>
               <td>
                 <%= form_with model: share, method: :delete, url: share_path(share), data: { confirm: 'Are you sure?' } do |form| %>
-                  <%= form.submit 'X', class: 'btn btn-danger' %>
+                  <%= form.submit 'X', class: 'btn btn-danger p-0 ps-2 pe-2' %>
                 <% end %>
               </td>
             <% end %>

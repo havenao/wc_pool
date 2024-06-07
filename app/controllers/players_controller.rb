@@ -73,13 +73,11 @@ class PlayersController < ApplicationController
     end
 
     def player_params
-      params.require(:player).permit(:name)
+      params.require(:player).permit(:name, :nickname)
     end
 
     def ensure_single_player_profile
-      puts current_user&.inspect
       if current_user&.player.present?
-        puts "uh oh"
         redirect_to current_user&.player, alert: 'You already have a player profile.'
       end
     end

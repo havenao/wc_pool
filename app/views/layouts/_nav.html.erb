@@ -1,5 +1,5 @@
 <nav class="navbar navbar-light bg-light pe-2 ps-2 d-flex flex-row justify-content-between sticky-top">
-  <a class="navbar-brand p-0 m-0 ps-2" href="#">
+  <a class="navbar-brand p-0 m-0 ps-2" href=<%=root_path%>>
     <h6 class="m-0"><strong>EuroCup</strong>2024</h6>
     <h5 class="m-0">INVE<strong>STARS</strong></h5>
   </a>
@@ -7,17 +7,16 @@
   <% if current_user&.player %>
     <ul class="navbar-nav d-flex flex-row ">
       <li class="nav-item pe-2">
-        <%= link_to 'Teams', teams_path, class: 'btn btn-dark' %>
+        <%= link_to 'Teams', teams_path, class: 'btn btn-dark p-1 ps-2 pe-2' %>
       </li>
       <li class="nav-item pe-2">
-        <%= link_to 'Players', players_path, class: 'btn btn-dark' %>
+        <%= link_to 'Players', players_path, class: 'btn btn-dark p-1 ps-2 pe-2' %>
       </li>
       <% if current_user&.player %>        
         <li class="nav-item pe-2">
-          <%= link_to 'Me', player_path(current_user.player), class: 'btn btn-success' %>
+          <%= link_to 'Me', player_path(current_user.player), class: 'btn btn-success p-1 ps-2 pe-2' %>
         </li>
       <% end %>
     </ul>
   <% end %>
-
 </nav>

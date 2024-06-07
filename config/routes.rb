@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root "players#index"
+  root "application#index"
 
   resources :teams
   post "/add_result", to: "teams#add_result"

@@ -5,6 +5,10 @@ class Player < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
+  def display_name
+    @display_name ||= nickname || name
+  end
+
   def points
     @points ||= shares.inject(0) do |total , share|
       total + share.points
