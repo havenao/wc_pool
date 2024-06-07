@@ -36,20 +36,21 @@ teams = [
 ]
 
 users = [
-  { email: ENV['ADMIN_EMAIL'], password: ENV['ADMIN_PASSWORD'], admin: true, player: Player.create({name: 'Haven'}) },
-  # { email: 'atlee@example.com', password: 'peepee', admin: false },
-  # { email: 'dagan@example.com', password: 'poopee', admin: false },
+  { email: ENV['ADMIN_EMAIL'], password: ENV['ADMIN_PASSWORD'], admin: true },
+  # { email: ENV['ADMIN_EMAIL'], password: ENV['ADMIN_PASSWORD'], admin: true, player: Player.create({name: 'Haven'}) },
+#   # { email: 'atlee@example.com', password: 'peepee', admin: false },
+#   # { email: 'dagan@example.com', password: 'poopee', admin: false },
 ]
 unless User.all.count > 0
   puts "Created Users" if user = User.create(users).first
   puts user.errors.full_messages
 end
 
-players = [
-  # {name: "Atlee", points: 0, user_id: User.find_by(email: 'atlee@example.com').id},
-  # {name: "Dagan", points: 0, user_id: User.find_by(email: 'dagan@example.com').id},
-  # { name: "Haven", points: 0, user_id: User.find_by(email: ENV['ADMIN_EMAIL']).id },
-]
+# players = [
+#   # {name: "Atlee", points: 0, user_id: User.find_by(email: 'atlee@example.com').id},
+#   # {name: "Dagan", points: 0, user_id: User.find_by(email: 'dagan@example.com').id},
+#   # { name: "Haven", points: 0, user_id: User.find_by(email: ENV['ADMIN_EMAIL']).id },
+# ]
 unless Team.all.count > 0
   puts "Added all teams." if Team.create(teams)
 end
