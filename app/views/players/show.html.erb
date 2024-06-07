@@ -15,7 +15,7 @@
 <% unless @tourny_started %>
   <h3 class="mb-3"> Credits Remaining: <%= @player.credits %></h3>
 <% else %>
-  <h3><%= ApplicationHelper.strip_trailing_zero @player.points.round(2) %> Points</h3>
+  <h3><%= @player.points > 0 ? ApplicationHelper.strip_trailing_zero(@player.points.round(2)) : 0 %> Points</h3>
 <% end %>
 
 <hr class="hr">

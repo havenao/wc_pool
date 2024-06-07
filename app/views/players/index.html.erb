@@ -5,7 +5,7 @@
 <ul class="list-group">
   <% @players.each do |player| %>
     <li class="list-group-item">
-      <span><%= link_to player.display_name, player %>: <%= ApplicationHelper.strip_trailing_zero player.points.round(2) %></span>
+      <span><%= link_to player.display_name, player %>: <%= player.points > 0 ? ApplicationHelper.strip_trailing_zero(player.points.round(2)) : 0 %></span>
     </li>
   <% end %>
 </ul>
