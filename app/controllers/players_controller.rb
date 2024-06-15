@@ -4,13 +4,13 @@ class PlayersController < ApplicationController
   before_action :set_player, only: [:show, :edit, :update, :destroy]
 
   def index
-    @players = Player.order(points: :desc)
+    @players = Player.all.sort_by(&:points).reverse
   end
   
   def show
     player_team_ids = @player.shares.map{|s| s.team_id }
     @unbought_teams = Team.order(name: :asc).reject{|t| player_team_ids.include?(t.id) }
-    @shares = Share.where(player_id: @player.id).order(points: :desc, amount: :desc)
+    @shares = Share.where(player_id: @player.id).sort_by { |share| [-share.points, -share.amount] }
     @amounts = (5..50).step(5).select { |i| i <= @player.credits }.reverse
   end
 

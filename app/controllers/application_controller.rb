@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :set_global_variables
 
   def index
-    
+
   end
 
   private

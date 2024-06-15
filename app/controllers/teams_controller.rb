@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   def index
-    @teams = Team.order(points: :desc)
+    @teams = Team.all.sort_by(&:points).reverse
     @team_groups = @teams.group_by(&:group)
     @knockout_stage = Result.where("text LIKE ?", "%Round of Sixteen%").exists?
   end
