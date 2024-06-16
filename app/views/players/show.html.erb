@@ -10,6 +10,9 @@
   <% unless @player.name == @player.display_name  %>
     <h6 class="m-0">(<%= @player.name %>)</h6>
   <% end %>
+  <% if current_user&.admin? %>
+    <h6 class="m-0"><%= @player.user.email %></h6>
+  <% end %>
 <hr class="hr">
 
 <% unless @tourny_started %>
