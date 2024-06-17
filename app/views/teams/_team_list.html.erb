@@ -14,7 +14,9 @@
 <% else %>
   <div class="container">
     <div class="d-flex flex-wrap">
-      <% @team_groups.each do |group, teams| %>
+      <% groups =['A', 'B', 'C', 'D', 'E', 'F'] %>
+      <% groups.each do |group| %>
+        <% teams = @team_groups[group] %>
         <div class="col-12 col-md-4 mb-2">
           <h3><%= group %></h3>
           <ul class="list-group flex-grow-1 me-3">
