@@ -24,3 +24,8 @@
   padding: .5rem 1rem;
   margin-bottom: .5rem;
 }
+
+.table-index {
+  width: 3rem;
+  text-align: right;
+}
