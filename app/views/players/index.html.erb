@@ -25,7 +25,7 @@
     <% @players.each do |player| %>
       <tr>
         <th class="table-index"><%= rank = rank + 1 %>.</th>
-        <td><%= player.display_name%></td>
+        <td><%= link_to player.display_name, player %></td>
         <td><%= player.points > 0 ? ApplicationHelper.strip_trailing_zero(player.points.round(2)) : 0 %></td>
       </tr>
     <% end %>
